@@ -3,8 +3,9 @@ package exchangeoffice.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -51,22 +52,6 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem mntmCommitReplacement;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ExchangeOfficeGUI frame = new ExchangeOfficeGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public ExchangeOfficeGUI() {
@@ -81,7 +66,7 @@ public class ExchangeOfficeGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.add(getPanelEast(), BorderLayout.EAST);
 		contentPane.add(getScrollPane(), BorderLayout.CENTER);
-		contentPane.add(getTextArea_1(), BorderLayout.SOUTH);
+		contentPane.add(getTextArea(), BorderLayout.SOUTH);
 		setSize(1000, 500);
 	}
 
@@ -126,6 +111,12 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem getMntmOpen() {
 		if (mntmOpen == null) {
 			mntmOpen = new JMenuItem("Open");
+			mntmOpen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					textAreaSouth.setText(GUIController.showOpenDialog());
+
+				}
+			});
 			mntmOpen.setIcon(new ImageIcon(
 					ExchangeOfficeGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
 			mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
@@ -136,6 +127,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem getMntmSave() {
 		if (mntmSave == null) {
 			mntmSave = new JMenuItem("Save");
+			mntmSave.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					textAreaSouth.setText(GUIController.showSaveDialog());
+				}
+			});
 			mntmSave.setIcon(new ImageIcon(
 					ExchangeOfficeGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
 			mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
@@ -146,6 +142,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem getMntmExit() {
 		if (mntmExit == null) {
 			mntmExit = new JMenuItem("Exit");
+			mntmExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIController.closeAplication();
+				}
+			});
 			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
 		}
 		return mntmExit;
@@ -154,6 +155,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem getMntmAbout() {
 		if (mntmAbout == null) {
 			mntmAbout = new JMenuItem("About");
+			mntmAbout.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIController.showAuthors();
+				}
+			});
 		}
 		return mntmAbout;
 	}
@@ -200,7 +206,7 @@ public class ExchangeOfficeGUI extends JFrame {
 		return btnCommitReplacement;
 	}
 
-	private JTextArea getTextArea_1() {
+	private JTextArea getTextArea() {
 		if (textAreaSouth == null) {
 			textAreaSouth = new JTextArea();
 			textAreaSouth.setBorder(new TitledBorder(null, "STATUS", TitledBorder.LEFT, TitledBorder.TOP, null, null));
@@ -258,4 +264,5 @@ public class ExchangeOfficeGUI extends JFrame {
 		}
 		return mntmCommitReplacement;
 	}
+
 }
