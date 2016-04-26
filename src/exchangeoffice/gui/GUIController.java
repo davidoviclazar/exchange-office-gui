@@ -2,12 +2,18 @@ package exchangeoffice.gui;
 
 import java.awt.EventQueue;
 import java.io.File;
+import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import exchangeoffice.Rate;
+import exchangeoffice.gui.models.ExchangeOfficeTableModel;
+
 public class GUIController {
+	public static LinkedList<Rate> rates = new LinkedList<Rate>();
 	private static ExchangeOfficeGUI frame;
+	private static ExchangeOfficeTableModel model;
 
 	/**
 	 * Launch the application.
@@ -71,4 +77,45 @@ public class GUIController {
 		JOptionPane.showMessageDialog(frame, authors, "Author", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	public static void showRate() {
+		String text = "";
+		for (Rate rate : rates) {
+			text = "Password: " + rate.getPassword() + "Name: " + rate.getName() + "Sales: " + rate.getSales()
+					+ "Purchasable: " + rate.getPurchasable() + "Middle: " + rate.getMiddle() + "Abbreviated name: "
+					+ rate.getAbbreviatedName();
+		}
+		showRateInStatusBar(text);
+		refreshTable(rates);
+
+	}
+
+	public static void showRateInStatusBar(String text) {
+
+		frame.setStatusText(text);
+
+	}
+
+	public static void refreshTable(LinkedList<Rate> rates) {
+		model = new ExchangeOfficeTableModel(rates);
+		model.fireTableDataChanged();
+		frame.setTableModel(model);
+
+	}
+
+	public static void addRateGUI() {
+		/**
+		 * Launch the form.
+		 */
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddRateGUI addRate = new AddRateGUI();
+					addRate.setVisible(true);
+					addRate.setLocationRelativeTo(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 }

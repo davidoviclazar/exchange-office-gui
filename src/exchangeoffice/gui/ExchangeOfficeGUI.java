@@ -25,6 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.TableModel;
 
 import exchangeoffice.gui.models.ExchangeOfficeTableModel;
 
@@ -41,11 +42,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem mntmExit;
 	private JMenuItem mntmAbout;
 	private JScrollPane scrollPane;
-	private JTable table;
+	private static JTable table;
 	private JButton btnAddRate;
 	private JButton btnDeleteRate;
 	private JButton btnCommitReplacement;
-	private JTextArea textAreaSouth;
+	private static JTextArea textAreaSouth;
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmAddRate;
 	private JMenuItem mntmDeleteRate;
@@ -176,7 +177,7 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable();
-			ExchangeOfficeTableModel model = new ExchangeOfficeTableModel();
+			ExchangeOfficeTableModel model = new ExchangeOfficeTableModel(null);
 			table.setModel(model);
 		}
 		return table;
@@ -185,6 +186,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JButton getBtnAddRate() {
 		if (btnAddRate == null) {
 			btnAddRate = new JButton("Add rate");
+			btnAddRate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIController.addRateGUI();
+				}
+			});
 			btnAddRate.setPreferredSize(new Dimension(200, 25));
 		}
 		return btnAddRate;
@@ -247,6 +253,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem getMntmAddRate() {
 		if (mntmAddRate == null) {
 			mntmAddRate = new JMenuItem("Add rate");
+			mntmAddRate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIController.addRateGUI();
+				}
+			});
 		}
 		return mntmAddRate;
 	}
@@ -263,6 +274,14 @@ public class ExchangeOfficeGUI extends JFrame {
 			mntmCommitReplacement = new JMenuItem("Commit replacement");
 		}
 		return mntmCommitReplacement;
+	}
+
+	public void setStatusText(String text) {
+		textAreaSouth.setText(textAreaSouth.getText() + "\n" + text);
+	}
+
+	public void setTableModel(TableModel model) {
+		table.setModel(model);
 	}
 
 }
