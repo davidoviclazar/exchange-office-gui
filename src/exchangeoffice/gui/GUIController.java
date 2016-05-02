@@ -118,4 +118,38 @@ public class GUIController {
 			}
 		});
 	}
+
+	public static void deleteRow(int selectedRow) {
+		if (selectedRow == -1) {
+			showWrongChoiceDialog();
+		} else {
+			int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the selected rate?",
+					"Delete rate", JOptionPane.YES_NO_OPTION);
+			if (option == JOptionPane.YES_OPTION) {
+				rates.remove(selectedRow);
+				refreshTable(rates);
+				showSuccessfullyDeleteRateDialog();
+				showRateInStatusBar("Deleted row with index: " + selectedRow + "!");
+
+			} else {
+				showUnsuccessfulDeleteRateDialog();
+			}
+		}
+
+	}
+
+	private static void showUnsuccessfulDeleteRateDialog() {
+		JOptionPane.showMessageDialog(frame.getContentPane(), "Rate not deleted!", "Failure",
+				JOptionPane.ERROR_MESSAGE);
+	}
+
+	private static void showSuccessfullyDeleteRateDialog() {
+		JOptionPane.showMessageDialog(frame.getContentPane(), "Rate successfully deleted!", "Success",
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	private static void showWrongChoiceDialog() {
+		JOptionPane.showMessageDialog(frame.getContentPane(), "Choose rate for deletion!", "Error",
+				JOptionPane.ERROR_MESSAGE);
+	}
 }

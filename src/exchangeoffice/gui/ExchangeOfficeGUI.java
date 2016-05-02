@@ -199,6 +199,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JButton getBtnDeleteRate() {
 		if (btnDeleteRate == null) {
 			btnDeleteRate = new JButton("Delete rate");
+			btnDeleteRate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIController.deleteRow(table.getSelectedRow());
+				}
+			});
 			btnDeleteRate.setPreferredSize(new Dimension(200, 25));
 		}
 		return btnDeleteRate;
