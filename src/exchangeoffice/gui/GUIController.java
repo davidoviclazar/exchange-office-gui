@@ -152,4 +152,21 @@ public class GUIController {
 		JOptionPane.showMessageDialog(frame.getContentPane(), "Choose rate for deletion!", "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
+
+	public static void executeReplacementGUI() {
+		/**
+		 * Launch the ExecuteReplacementGUI.
+		 */
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ExecuteReplacementGUI frame = new ExecuteReplacementGUI();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 }

@@ -212,6 +212,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JButton getBtnCommitReplacement() {
 		if (btnCommitReplacement == null) {
 			btnCommitReplacement = new JButton("Commit replacement");
+			btnCommitReplacement.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIController.executeReplacementGUI();
+				}
+			});
 			btnCommitReplacement.setPreferredSize(new Dimension(200, 25));
 		}
 		return btnCommitReplacement;
@@ -277,6 +282,11 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem getMntmCommitReplacement() {
 		if (mntmCommitReplacement == null) {
 			mntmCommitReplacement = new JMenuItem("Commit replacement");
+			mntmCommitReplacement.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIController.executeReplacementGUI();
+				}
+			});
 		}
 		return mntmCommitReplacement;
 	}
