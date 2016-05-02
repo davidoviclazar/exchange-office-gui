@@ -41,7 +41,7 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem mntmSave;
 	private JMenuItem mntmExit;
 	private JMenuItem mntmAbout;
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPaneCenter;
 	private static JTable table;
 	private JButton btnAddRate;
 	private JButton btnDeleteRate;
@@ -51,6 +51,7 @@ public class ExchangeOfficeGUI extends JFrame {
 	private JMenuItem mntmAddRate;
 	private JMenuItem mntmDeleteRate;
 	private JMenuItem mntmCommitReplacement;
+	private JScrollPane scrollPaneSouth;
 
 	/**
 	 * Create the frame.
@@ -66,8 +67,8 @@ public class ExchangeOfficeGUI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.add(getPanelEast(), BorderLayout.EAST);
-		contentPane.add(getScrollPane(), BorderLayout.CENTER);
-		contentPane.add(getTextArea(), BorderLayout.SOUTH);
+		contentPane.add(getScrollPaneCenter(), BorderLayout.CENTER);
+		contentPane.add(getScrollPaneSouth(), BorderLayout.SOUTH);
 		setSize(1000, 500);
 	}
 
@@ -165,13 +166,13 @@ public class ExchangeOfficeGUI extends JFrame {
 		return mntmAbout;
 	}
 
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			addPopup(scrollPane, getPopupMenu());
-			scrollPane.setViewportView(getTable());
+	private JScrollPane getScrollPaneCenter() {
+		if (scrollPaneCenter == null) {
+			scrollPaneCenter = new JScrollPane();
+			addPopup(scrollPaneCenter, getPopupMenu());
+			scrollPaneCenter.setViewportView(getTable());
 		}
-		return scrollPane;
+		return scrollPaneCenter;
 	}
 
 	private JTable getTable() {
@@ -299,4 +300,11 @@ public class ExchangeOfficeGUI extends JFrame {
 		table.setModel(model);
 	}
 
+	private JScrollPane getScrollPaneSouth() {
+		if (scrollPaneSouth == null) {
+			scrollPaneSouth = new JScrollPane();
+			scrollPaneSouth.setViewportView(getTextArea());
+		}
+		return scrollPaneSouth;
+	}
 }
